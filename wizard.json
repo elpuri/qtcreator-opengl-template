@@ -1,0 +1,114 @@
+{
+    "version": 1,
+    "kind": "project",
+    "id": "U.QtOpenGLApplication",
+    "category": "F.Application",
+    "trDescription": "Creates a Qt based OpenGL application skeleton.",
+    "trDisplayName": "Qt OpenGL application",
+    "trDisplayCategory": "Application",
+    "icon": "opengl_wizard.png",
+
+    "options":
+    [
+        { "key": "ProFileName", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{ProjectName}', 'pro')}" },
+        { "key": "MainCppFileName", "value": "%{JS: 'main.' + Util.preferredSuffix('text/x-c++src')}" },
+        { "key": "ResourceFileName",  "value": "%{JS: Util.fileName('%{ProjectName}', 'qrc')}" }
+    ],
+
+    "pages":
+    [
+        {
+            "trDisplayName": "Project Location",
+            "trShortTitle": "Location",
+            "typeId": "Project"
+        },
+        {
+            "trDisplayName": "Define Project Details",
+            "trShortTitle": "Details",
+            "typeId": "Fields",
+            "data":
+            [
+                {
+                    "name": "WindowClass",
+                    "trDisplayName": "Window class name:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data": { "validator": "(?:(?:[a-zA-Z_][a-zA-Z_0-9]*::)+[a-zA-Z_][a-zA-Z_0-9]*|)" }
+                },
+                {
+                    "name": "Sp1",
+                    "type": "Spacer",
+                    "data": { "factor": 2 }
+                },
+                {
+                    "name": "WindowClassHeaderFileName",
+                    "type": "LineEdit",
+                    "trDisplayName": "Header file:",
+                    "mandatory": true,
+                    "data": { "trText": "%{JS: Cpp.classToFileName('%{WindowClass}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}" }
+                },
+                {
+                    "name": "WindowClassSourceFileName",
+                    "type": "LineEdit",
+                    "trDisplayName": "Source file:",
+                    "mandatory": true,
+                    "data": { "trText": "%{JS: Cpp.classToFileName('%{WindowClass}', '%{JS: Util.preferredSuffix('text/x-c++src')}')}" }
+                }
+            ]
+        },
+        {
+            "trDisplayName": "Kit Selection",
+            "trShortTitle": "Kits",
+            "typeId": "Kits",
+            "data": {
+                "projectFilePath": "%{ProFileName}"
+            }
+        },
+        {
+            "trDisplayName": "Project Management",
+            "trShortTitle": "Summary",
+            "typeId": "Summary"
+        }
+    ],
+    "generators":
+    [
+        {
+            "typeId": "File",
+            "data":
+            [
+                {
+                    "source": "openglapplication.pro",
+                    "target": "%{ProFileName}",
+                    "openAsProject": true
+                },
+                {
+                    "source": "main.cpp",
+                    "target": "%{MainCppFileName}"
+                },
+                {
+                    "source": "openglwindow.h",
+                    "target": "%{WindowClassHeaderFileName}"
+                },
+                {
+                    "source": "openglwindow.cpp",
+                    "target": "%{WindowClassSourceFileName}"
+                },
+                {
+                    "source": "shaders/simple_vs.glsl"
+                },
+                {
+                    "source": "shaders/simple_fs.glsl"
+                },
+                {
+                    "source": "openglapplication.qrc",
+                    "target": "%{ResourceFileName}"
+                },
+                {
+                    "source": "data/texture.jpg",
+                    "target": "data/texture.jpg",
+                    "isBinary": "true"
+                }
+            ]
+        }
+    ]
+}

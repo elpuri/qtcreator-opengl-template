@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>shaders/simple_fs.glsl</file>
+        <file>shaders/simple_vs.glsl</file>
+        <file>data/texture.jpg</file>
+    </qresource>
+</RCC>
