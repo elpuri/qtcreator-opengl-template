@@ -53,6 +53,19 @@
                     "trDisplayName": "Source file:",
                     "mandatory": true,
                     "data": { "trText": "%{JS: Cpp.classToFileName('%{WindowClass}', '%{JS: Util.preferredSuffix('text/x-c++src')}')}" }
+                },
+                {
+                    "name": "Sp2",
+                    "type": "Spacer",
+                    "data": { "factor": 2 }
+                },
+                {
+                    "name": "SkeletonType",
+                    "trDisplayName": "Skeleton type:",
+                    "type": "ComboBox",
+                    "data": {
+                        "items": [ "Simple", "Simple 4.x"]
+                    }
                 }
             ]
         },
@@ -86,18 +99,44 @@
                     "target": "%{MainCppFileName}"
                 },
                 {
-                    "source": "openglwindow.h",
-                    "target": "%{WindowClassHeaderFileName}"
+                    "source": "openglwindow_simple.h",
+                    "target": "%{WindowClassHeaderFileName}",
+                    "condition": "%{JS: ('%{SkeletonType}' === 'Simple' ) ? 'true' : 'false'}"
                 },
                 {
-                    "source": "openglwindow.cpp",
-                    "target": "%{WindowClassSourceFileName}"
+                    "source": "openglwindow_simple.cpp",
+                    "target": "%{WindowClassSourceFileName}",
+                    "condition": "%{JS: ('%{SkeletonType}' === 'Simple' ) ? 'true' : 'false'}"
                 },
                 {
-                    "source": "shaders/simple_vs.glsl"
+                    "source": "shaders/simple_vs_simple.glsl",
+                    "target": "shaders/simple_vs.glsl",
+                    "condition": "%{JS: ('%{SkeletonType}' === 'Simple' ) ? 'true' : 'false'}"
                 },
                 {
-                    "source": "shaders/simple_fs.glsl"
+                    "source": "shaders/simple_fs_simple.glsl",
+                    "target": "shaders/simple_fs.glsl",
+                    "condition": "%{JS: ('%{SkeletonType}' === 'Simple' ) ? 'true' : 'false'}"
+                },
+                {
+                    "source": "openglwindow_4x.h",
+                    "target": "%{WindowClassHeaderFileName}",
+                    "condition": "%{JS: ('%{SkeletonType}' === 'Simple 4.x' ) ? 'true' : 'false'}"
+                },
+                {
+                    "source": "openglwindow_4x.cpp",
+                    "target": "%{WindowClassSourceFileName}",
+                    "condition": "%{JS: ('%{SkeletonType}' === 'Simple 4.x' ) ? 'true' : 'false'}"
+                },
+                {
+                    "source": "shaders/simple_vs_4x.glsl",
+                    "target": "shaders/simple_vs.glsl",
+                    "condition": "%{JS: ('%{SkeletonType}' === 'Simple 4.x' ) ? 'true' : 'false'}"
+                },
+                {
+                    "source": "shaders/simple_fs_4x.glsl",
+                    "target": "shaders/simple_fs.glsl",
+                    "condition": "%{JS: ('%{SkeletonType}' === 'Simple 4.x' ) ? 'true' : 'false'}"
                 },
                 {
                     "source": "openglapplication.qrc",
